@@ -2,8 +2,9 @@ package com.rgk.uploadfilessdk.di
 
 import android.app.Application
 import android.content.Context
-import android.content.SharedPreferences
 import com.rgk.uploadfilessdk.data.network.ApiService
+import com.rgk.uploadfilessdk.data.repository.RemoteFileRepository
+import com.rgk.uploadfilessdk.domain.repository.FileRepository
 import com.rgk.uploadfilessdk.util.PranUploadFile.Configuration.baseUrl
 import dagger.Module
 import dagger.Provides
@@ -50,5 +51,13 @@ object ServiceBuilder {
     @Singleton
     fun provideApplicationContext(app: Application): Context {
         return app.applicationContext
+    }
+
+    @Provides
+    @Singleton
+    fun providerFileRepository(
+        api : ApiService
+    ): FileRepository {
+        return RemoteFileRepository(api)
     }
 }

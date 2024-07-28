@@ -1,4 +1,4 @@
-package com.rgk.pranuploadfilessdk
+package com.rgk.pranuploadfilessdk.presentation
 
 import android.content.Context
 import android.net.Uri
@@ -20,13 +20,6 @@ class MainViewModel @Inject constructor(
     private val uploadPhotoUseCase: UploadPhotoUseCase
 ) : ViewModel() {
 
-    init {
-        PranUploadFile.create()
-            .baseUrl("")
-            .secretKey("mysecretkey12345")
-            .build()
-    }
-
     private val _uploadState = MutableStateFlow(UploadResult(progress = 0))
     val uploadState: StateFlow<UploadResult> get() = _uploadState
 
@@ -34,7 +27,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val file = uri.toFile(context)
-                uploadPhotoUseCase.invoke(file, "photo123", "kflores")
+                uploadPhotoUseCase.invoke(file, "photo_example.jpg", "kflores")
                     .collect { result ->
                         _uploadState.value = result
                     }

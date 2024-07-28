@@ -15,7 +15,7 @@ class RemoteFileRepository @Inject constructor(
     private val apiService: ApiService
 ) : FileRepository {
 
-    override fun uploadPhoto(file: File, description: String, userId: String): Flow<UploadResult> = flow {
+    override fun uploadPhoto(file: File, description: String, userId: String): Flow<UploadResult> = flow{
         val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
         val multipartBody = MultipartBody.Part.createFormData("file", file.name, requestBody)
 

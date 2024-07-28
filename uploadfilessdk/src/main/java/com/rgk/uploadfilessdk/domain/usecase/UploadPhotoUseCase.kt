@@ -14,8 +14,7 @@ class UploadPhotoUseCase @Inject constructor(
     operator fun invoke(file: File, description: String, userId: String): Flow<UploadResult> = flow {
         try {
             repository.uploadPhoto(file, description, userId).collect { uploadResult ->
-                val decryptedUrl = uploadResult.url?.let { EncryptionUtils.decrypt(it) }
-                emit(uploadResult.copy(url = decryptedUrl))
+                emit(uploadResult.copy(url = uploadResult.url))
             }
         } catch (e: Exception) {
             emit(UploadResult(progress = 0, error = e))

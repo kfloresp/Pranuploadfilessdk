@@ -5,7 +5,7 @@ import com.rgk.uploadfilessdk.util.EncryptionUtils
 
 data class UploadResponse(
     @SerializedName("url")
-    val encryptedUrl: String
+    val encryptedUrl: String = ""
 ) {
     val url: String
         get() = EncryptionUtils.decrypt(encryptedUrl)

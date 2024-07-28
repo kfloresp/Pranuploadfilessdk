@@ -1,4 +1,4 @@
-package com.rgk.pranuploadfilessdk
+package com.rgk.pranuploadfilessdk.presentation
 
 import com.rgk.uploadfilessdk.domain.repository.FileRepository
 import com.rgk.uploadfilessdk.domain.usecase.UploadPhotoUseCase
