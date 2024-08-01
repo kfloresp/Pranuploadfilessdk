@@ -1,8 +1,4 @@
 package com.rgk.uploadfilessdk.util
-import android.util.Base64
-import com.rgk.uploadfilessdk.util.PranUploadFile.Configuration.secretKey
-import javax.crypto.Cipher
-import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
 object EncryptionUtils {
@@ -13,7 +9,7 @@ object EncryptionUtils {
         return SecretKeySpec(this.toByteArray(), ALGORITHM)
     }
 
-    fun encrypt(input: String, key: String = ""): String {
+    /*fun encrypt(input: String, key: String = ""): String {
         val cipher = Cipher.getInstance(TRANSFORMATION)
         val secretKey = if (key.isNotEmpty()) key else secretKey
         cipher.init(Cipher.ENCRYPT_MODE, secretKey.toSecretKeySpec())
@@ -35,4 +31,5 @@ object EncryptionUtils {
         val decryptedBytes = cipher.doFinal(encryptedBytes)
         return String(decryptedBytes)
     }
+*/
 }

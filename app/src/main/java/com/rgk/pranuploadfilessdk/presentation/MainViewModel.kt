@@ -27,7 +27,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val file = uri.toFile(context)
-                uploadPhotoUseCase.invoke(file, "photo_example.jpg", "kflores")
+                uploadPhotoUseCase.invoke(file, "test_", "kflores")
                     .collect { result ->
                         _uploadState.value = result
                     }
@@ -38,11 +38,26 @@ class MainViewModel @Inject constructor(
     }
 
     private fun Uri.toFile(context: Context): File {
-        val inputStream = context.contentResolver.openInputStream(this)
-        val file = File(context.cacheDir, "photo.jpg")
-        val outputStream = FileOutputStream(file)
-        inputStream?.copyTo(outputStream)
-        outputStream.close()
+        val fileName = getFileName(context) ?: "default_filename.jpg"
+        val file = File(context.cacheDir, fileName)
+
+        context.contentResolver.openInputStream(this)?.use { inputStream ->
+            FileOutputStream(file).use { outputStream ->
+                inputStream.copyTo(outputStream)
+            }
+        }
+
         return file
+    }
+
+    private fun Uri.getFileName(context: Context): String? {
+        var name: String? = null
+        context.contentResolver.query(this, null, null, null, null)?.use { cursor ->
+            val nameIndex = cursor.getColumnIndex(android.provider.MediaStore.Images.Media.DISPLAY_NAME)
+            if (nameIndex != -1 && cursor.moveToFirst()) {
+                name = cursor.getString(nameIndex)
+            }
+        }
+        return name
     }
 }

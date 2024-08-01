@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.rgk.pranuploadfilessdk.R
 import com.rgk.pranuploadfilessdk.ui.theme.PranuploadfilessdkTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -57,8 +58,15 @@ fun PhotoUploadScreen(viewModel: MainViewModel) {
         Spacer(modifier = Modifier.height(16.dp))
         when {
             uploadState.error != null -> Text(text = "Error: ${uploadState.error!!.message}")
-            uploadState.progress > 0 -> Text(text = "Progreso: ${uploadState.progress}%")
-            uploadState.url != null -> Text(text = "Foto subida en: ${uploadState.url}")
+            uploadState.progress in 1..99 ->
+                Text(text = "Progreso: ${uploadState.progress}%")
+            uploadState.progress == 100 && uploadState.url != null ->
+            LoadImageFromUrl(
+                url = uploadState.url,
+                modifier = Modifier,
+                contentDescription = "Foto subida",
+                placeholderId = R.drawable.ic_launcher_background
+            )
         }
     }
 }

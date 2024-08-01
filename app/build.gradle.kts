@@ -70,6 +70,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.hiltAndroid)
+    implementation("io.coil-kt:coil-compose:2.0.0")
     kapt(libs.hiltCompiler)
 
 }

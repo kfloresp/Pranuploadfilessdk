@@ -10,8 +10,7 @@ class MainApp : Application(){
         super.onCreate()
 
         PranUploadFile.create()
-                .baseUrl("http://demo2464891.mockable.io/")
-                .secretKey("mysecretkey12345")
+                .baseUrl("http://192.168.0.88/upload_files_sdk/api/")
                 .build()
 
     }
